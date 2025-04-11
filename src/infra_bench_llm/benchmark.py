@@ -3,6 +3,9 @@ import subprocess
 import requests
 from typing import List, Dict, Optional, Union
 import tiktoken
+import matplotlib.pyplot as plt
+import numpy as np
+import os
 
 from .config import (
     DEFAULT_MODELS,
@@ -180,11 +183,7 @@ class BenchmarkRunner:
                 results[-1].ttft_per_iteration = ttft_per_iteration
         return results
 
-import os
-
 def plot_results(results: List[BenchmarkResult], visuals_dir="visuals"):
-    import matplotlib.pyplot as plt
-    import numpy as np
 
     # Ensure visuals directory exists
     os.makedirs(visuals_dir, exist_ok=True)
@@ -244,16 +243,16 @@ def print_report(results: List[BenchmarkResult]):
     print("Benchmark Report:")
     for res in results:
         print(f"Model: {res.model}")
-        print(f"  Quantization: {res.quantization}")
         times_list = [round(t, 2) for t in res.times]
         tokens_list = [int(tk) for tk in res.tokens_per_iteration]
         tps_list = [round((res.tokens_per_iteration[i] / res.times[i]), 2) if res.times[i] > 0 else 0.0 for i in range(len(res.times))]
         ttft_raw = getattr(res, "ttft_per_iteration", [res.ttft] + [0.0] * (len(res.times)-1))
         ttft_list = [round(ttft, 2) if isinstance(ttft, float) else 0.0 for ttft in ttft_raw]
-        print(f"  Times (s): {times_list}")
-        print(f"  Tokens: {tokens_list}")
+
         print(f"  TPS: {tps_list}")
-        print(f"  TTFT (s): {ttft_list}")
+        print(f"  TTFT: {ttft_list}")
+        print(f"  Time elapsed: {times_list}")
+        print(f"  Tokens generated: {tokens_list}")
         print("")
     # Plot and save graphs
     plot_results(results)
