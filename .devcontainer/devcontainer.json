@@ -1,0 +1,19 @@
+{
+    "name": "infra-bench-llm-dev",
+    "build": {
+        "dockerfile": "../Dockerfile",
+        "context": ".."
+    },
+    "workspaceFolder": "/home/devuser/app",
+    "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3"
+    },
+    "mounts": [
+        //"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
+        "source=${localWorkspaceFolder},target=/home/devuser/app,type=bind,consistency=cached"
+    ],
+    "extensions": [
+        "ms-python.python",
+    ],
+    "postCreateCommand": "pip3 install --upgrade pip && pip3 install -r requirements.txt"
+}
