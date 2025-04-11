@@ -29,7 +29,7 @@ A Python library and CLI tool to benchmark LLM inference on CPU-only infrastruct
 
 ### Running as a Standalone Library
 
-1. Ensure you have Python 3.8+ and Docker installed.
+1. Ensure you have Python 3.8+ installed.
 2. Install dependencies:
    ```bash
    pip3 install -r requirements.txt
