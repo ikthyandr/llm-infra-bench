@@ -26,8 +26,8 @@ If you have an existing container (e.g., `pgai-ollama`) where you want to run th
    ```bash
    ./run_container_benchmark.sh pgai-ollama
    ```
-   To change the defaul models, you can add models on 'config.py'.
-   
+   To change the default model(s), you can add models on 'config.py'.
+
 3. The script will:
    - Copy the application files to the container
    - Try to install python3-venv and create a virtual environment (with fallback to system Python)
