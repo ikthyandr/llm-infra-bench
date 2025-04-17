@@ -1,0 +1,18 @@
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Benchmark results
+container_results/*
+!container_results/.gitkeep
+
+# Ollama models
+models/

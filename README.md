@@ -2,6 +2,8 @@
 
 A Python library and CLI tool to benchmark LLM inference on CPU-only infrastructure using Ollama in a Dockerized Ubuntu 22.04 environment.
 
+> **New in container-bench branch:** Run benchmarks in any existing container with the `run_container_benchmark.sh` script!
+
 ## Features
 
 - Runs LLM inference benchmarks in a reproducible Docker container
@@ -14,6 +16,30 @@ A Python library and CLI tool to benchmark LLM inference on CPU-only infrastruct
 - Devcontainer and Dockerfile for easy development
 
 ## Quickstart
+
+### Running in an Existing Container
+
+If you have an existing container (e.g., `pgai-ollama`) where you want to run the benchmark:
+
+1. Make sure the container is running
+2. Run the benchmark script:
+   ```bash
+   ./run_container_benchmark.sh pgai-ollama
+   ```
+   
+   You can also pass additional arguments to the benchmark:
+   ```bash
+   ./run_container_benchmark.sh pgai-ollama --models gemma3:1b llama2:7b --iterations 3
+   ```
+
+3. The script will:
+   - Copy the application files to the container
+   - Try to install python3-venv and create a virtual environment (with fallback to system Python)
+   - Install dependencies (in the virtual environment if available, otherwise using --user)
+   - Run the benchmark
+   - Copy the results back to the host
+
+4. Results will be printed in the terminal and graphs will be saved in the `container_results/<container_name>_<timestamp>/` directory.
 
 ### Running in Devcontainer (VSCode)
 
