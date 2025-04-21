@@ -7,7 +7,7 @@ A Python library and CLI tool to benchmark LLM inference on CPU-only infrastruct
 ## Features
 
 - Runs LLM inference benchmarks in a reproducible Docker container
-- Installs Ollama and pulls configurable models (default: `gemma3:1b`)
+- Uses Ollama and pulls configurable models (default: `gemma3:1b`)
 - Measures tokens per second (TPS) and time to first token (TTFT)
 - Configurable number of prompt iterations (default: 2)
 - Supports benchmarking multiple models in a single run
@@ -56,7 +56,7 @@ If you have an existing container (e.g., `pgai-ollama`) where you want to run th
    ```bash
    pip3 install -r requirements.txt
    ```
-3. Make sure Ollama is installed and running, or let the script install it for you.
+3. Make sure Ollama is installed and running.
 4. Run the benchmark:
    ```bash
    python3 run_benchmark.py

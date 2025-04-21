@@ -20,33 +20,6 @@ def parse_args():
     return parser.parse_args()
 
 def main():
-    # Check if ollama is installed
-    if shutil.which("ollama") is None:
-        print("Ollama not found. Installing Ollama...")
-        try:
-            subprocess.run(
-                ["curl", "-fsSL", "https://ollama.com/install.sh"],
-                check=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-            )
-            subprocess.run(
-                ["sh"],
-                input=subprocess.run(
-                    ["curl", "-fsSL", "https://ollama.com/install.sh"],
-                    check=True,
-                    stdout=subprocess.PIPE
-                ).stdout,
-                check=True
-            )
-        except Exception as e:
-            print(f"Failed to install Ollama: {e}")
-            sys.exit(1)
-        if shutil.which("ollama") is None:
-            print("Ollama installation failed or not found in PATH.")
-            sys.exit(1)
-        print("Ollama installed successfully.")
-
     args = parse_args()
     # Determine models list: prefer --models, fallback to --model, else use DEFAULT_MODELS
     if args.models is not None and len(args.models) > 0:

@@ -74,6 +74,17 @@ class BenchmarkRunner:
 
     def pull_model(self, model: str, quantization: Optional[str]):
         model_name = self._get_ollama_model_name(model, quantization)
+        # Check if model already exists
+        try:
+            response = requests.get("http://localhost:11434/api/tags")
+            if response.status_code == 200:
+                existing_models = [model['name'] for model in response.json().get('models', [])]
+                if model_name in existing_models:
+                    print(f"Model '{model_name}' already exists. Skipping pull.")
+                    return
+        except Exception as e:
+            print(f"Error checking for existing models: {e}. Proceeding with pull.")
+        # Proceed to pull if not found or error occurred
         print(f"Pulling model '{model_name}' ...")
         result = subprocess.run(
             ["ollama", "pull", model_name],
